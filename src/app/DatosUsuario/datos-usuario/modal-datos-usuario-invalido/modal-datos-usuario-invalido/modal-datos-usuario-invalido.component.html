@@ -1,0 +1,24 @@
+
+<h1 mat-dialog-title>Contacto</h1>
+<div mat-dialog-content>
+Se encontraron los siguientes errores en sus datos de contacto:
+<ul>
+  <li *ngIf="data.get('nombre').errors?.required">El nombre es requerido</li>
+
+  <li *ngIf="data.get('mail').errors?.required">El email es requerido</li>
+  <li *ngIf="data.get('mail').errors?.pattern">El formato del email no es valido</li>
+  
+  <li *ngIf="data.get('telefono').errors?.required">El telefono es requerido</li>
+  <li *ngIf="data.get('telefono').errors?.pattern">El formato del telefono no es valido</li>
+
+  <li *ngIf="data.get('fecha').errors?.required">La fecha es requerida</li>
+
+  <li *ngIf="data.get('ciudadEstado').errors?.required">La locacion es requerida</li>
+</ul>
+
+Por favor corrija los erores antes de continuar.
+ 
+
+
+</div>
+<button type="button" mat-raised-button (click)="cerrarModal()" >Ok</button>

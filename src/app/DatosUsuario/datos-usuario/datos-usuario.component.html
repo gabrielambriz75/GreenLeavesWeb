@@ -1,0 +1,85 @@
+
+
+<div class="containerInfo">
+<form #f="ngForm" [formGroup]="formUsuario" (ngSubmit)="enviarDatos()" class="form-horizontal" >
+
+    <div class="form-group">
+        <label class=" col-sm-2 control-label">Nombre:</label> 
+        <div class="col-sm-3">
+            <input             
+            formControlName="nombre"
+            id="nombre"
+            type="text" name="nombre" class="form-control" /><br />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" >E-mail:</label> 
+        <div class="col-sm-3">
+            <input 
+            formControlName="mail"
+            type="email" name="email"  class="form-control"/><br />
+         </div>
+</div>
+<div class="form-group">
+        <label class="col-sm-2 control-label">Teléfono:</label>
+        <div class="col-sm-3">
+            <!-- <input 
+            formControlName="telefono"
+            type="text" name="telefono" class="form-control" /><br /> -->
+            <mat-form-field appearance="fill">
+                <mat-label></mat-label>
+               
+                <input matInput formControlName="telefono" type="tel" >
+                
+              </mat-form-field>
+         </div>
+</div>
+<div class="form-group">
+        <label class="col-sm-2 control-label">Fecha:</label>
+        <div class="col-sm-2">
+            <!-- <input 
+            formControlName="fecha"
+            matInput [matInput]/><br /> -->
+            <mat-form-field  appearance="fill">
+            <mat-label></mat-label>
+            <input   formControlName="fecha" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker  #picker ></mat-datepicker>
+        </mat-form-field>
+        </div>
+</div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">Ciudad y Estado:</label>
+            <!-- <div class="col-sm-3"> <input 
+                formControlName="ciudadEstado"
+                (keyup)="obtenerLocacion($event.target.value)"
+                type="text" name="ciudad"  class="form-control"/><br />
+             </div> -->
+
+             <mat-form-field  class="ciudadEstado" appearance="outline"  >
+                
+                <mat-select placeholder="Seleccione..."  formControlName="ciudadEstado">
+                  <input                 
+                    matInput
+                    autocomplete="off"
+                    type="text"
+                    id="filtrar"
+                    placeholder="Buscar"
+                    (keyup)="obtenerLocacion($event)"
+                    (keydown)="$event.stopPropagation()"
+                  />    
+                  <mat-option  disabled [value]="-1">Ciudad,Estado,Pais</mat-option>
+                  <mat-option *ngFor="let locacion of locacionCmb$ | async" [value]="locacion.idCiudad">
+                    {{ locacion.locacionCompleta }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+
+        </div>
+      
+        <input class="btn btn-primary" type="submit" value="Enviar" /> 
+</form>
+</div>
