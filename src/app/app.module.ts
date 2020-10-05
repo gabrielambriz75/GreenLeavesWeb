@@ -15,12 +15,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatSelectModule} from '@angular/material/select';
 import { ModalDatosUsuarioInvalidoComponent } from './DatosUsuario/datos-usuario/modal-datos-usuario-invalido/modal-datos-usuario-invalido/modal-datos-usuario-invalido.component';
+import { DatosUsuarioEnviadoComponent } from './DatosUsuario/datos-usuario/datos-usuario-enviado/datos-usuario-enviado.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     DatosUsuarioComponent,
-    ModalDatosUsuarioInvalidoComponent
+    ModalDatosUsuarioInvalidoComponent,
+    DatosUsuarioEnviadoComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { ModalDatosUsuarioInvalidoComponent } from './DatosUsuario/datos-usuario
     MatNativeDateModule,
     MatMomentDateModule,
     HttpClientModule,
-    MatSelectModule
+    MatSelectModule,
+
   ],
   providers: [
     MatNativeDateModule,

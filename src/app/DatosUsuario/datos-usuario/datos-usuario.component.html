@@ -1,6 +1,6 @@
 
 
-<div class="containerInfo">
+<div class="containerInfo" [hidden]=formularioDatosSeccion>
 <form #f="ngForm" [formGroup]="formUsuario" (ngSubmit)="enviarDatos()" class="form-horizontal" >
 
     <div class="form-group">
@@ -70,7 +70,7 @@
                     (keydown)="$event.stopPropagation()"
                   />    
                   <mat-option  disabled [value]="-1">Ciudad,Estado,Pais</mat-option>
-                  <mat-option *ngFor="let locacion of locacionCmb$ | async" [value]="locacion.idCiudad">
+                  <mat-option *ngFor="let locacion of locacionCmb$ | async" [value]="locacion.locacionCompleta">
                     {{ locacion.locacionCompleta }}
                   </mat-option>
                 </mat-select>
@@ -83,3 +83,4 @@
         <input class="btn btn-primary" type="submit" value="Enviar" /> 
 </form>
 </div>
+<app-datos-usuario-enviado [datosU]="formUsuario.getRawValue()" [hidden]=datosEnviadoSeccion></app-datos-usuario-enviado>

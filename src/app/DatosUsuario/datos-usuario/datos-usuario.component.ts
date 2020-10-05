@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { DatosUsuarioService } from './datos-usuario.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   MomentDateAdapter,
@@ -14,8 +14,17 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ModalDatosUsuarioInvalidoComponent } from './modal-datos-usuario-invalido/modal-datos-usuario-invalido/modal-datos-usuario-invalido.component';
 
+
 interface LocationCmb {
   idCiudad: number;
+  locacionCompleta: string;
+}
+
+export interface DatosUsuario {
+  nombreCompleto: string;
+  mail: string;
+  telefono: string;
+  fecha: string;
   locacionCompleta: string;
 }
 
@@ -55,10 +64,11 @@ export const MY_FORMATS = {
 export class DatosUsuarioComponent implements OnInit {
   formUsuario: FormGroup;
   locacionCmb$: Observable<LocationCmb[]>;
-
+  datosEnviadoSeccion = true;
+  formularioDatosSeccion = false;
   constructor(
     public dialog: MatDialog,
-    private datosUsuarioService: DatosUsuarioService
+    private datosUsuarioService: DatosUsuarioService,
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +89,7 @@ export class DatosUsuarioComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line: typedef
   obtenerLocacion(event) {
     const keyCodeUpArrow = 38;
     const keyCodeDownArrow = 40;
@@ -99,16 +110,21 @@ export class DatosUsuarioComponent implements OnInit {
     // });
   }
 
+  // tslint:disable-next-line: typedef
   enviarDatos() {
     if (this.formUsuario.valid) {
-      console.log('Bien');
+      const datosUsuario = this.formUsuario.getRawValue();
+      this.datosUsuarioService.enviarDatosUsuario(datosUsuario).subscribe((data) => {
+        this.datosEnviadoSeccion = false;
+        this.formularioDatosSeccion = true;
+        console.log(data);
+     });
+
+
     } else {
       this.dialog.open(ModalDatosUsuarioInvalidoComponent, {
         data: this.formUsuario,
       });
-      const dataUsuario = this.formUsuario.getRawValue();
-      console.log('No es valido prro.');
-      console.log(dataUsuario);
     }
   }
 }
